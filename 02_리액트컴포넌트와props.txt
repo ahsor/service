@@ -1,0 +1,574 @@
+[Component 사용하기]
+특정 코드 뭉치를 다른 부분에 이식하거나 재사용하기 위해 사용하는 코드 블록 단위
+컴포넌트 단위로 사용한 경우 필요한 위치에서 임포트해서 사용할 수 있다. 
+
+[React Developer Tools 설치하기]
+크롬 앱스토어를 이용하여 React Developer Tools 설치한 후 
+F12 > component 속성이 생기고 이것으로 react 구조를 확인할 수 있음 
+
+[Reactjs code snippets 설치하기]
+리엑트에서 자주 사용되는 코드를 자동 생성해주는 플러그인 
+설치후 리로드 
+https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
+로 연결되면 명령어 단축 코드를 나열하고 있음 
+RCC : 기본 리액트 컴포넌트 코드를 생성
+RCCP : 프로퍼티 타입과 함께 리액트 컴포넌트 코드를 생성
+RCFC : 생명주기와 함께 리액트 컴포넌트 코드를 생성
+rpc : 리액트 퓨어 컴포넌트를 생성
+rsc : 함수형 컴포넌트를 생성
+rscp : 프로퍼티 타입과 함께 함수형 컴포넌트를 생성
+
+[Prettier 설치하기]
+자동으로 Prettier 설정 적용하기 
+Preferences > Settings > formatOnSave 체크
+
+
+[1. 컴포넌트 만들기]
+[1-1. ./component02/R01_Component.js 만들기]
+// src/component02 폴더를 생성한 후 R01_Component.js 만들고 
+// 다음과 같이 클래스 컴포넌트 만들기 
+
+import React, { Component } from 'react';
+// import React from 'react';
+// import 구문은 차이 없음
+
+class R01_Component extends Component {
+    render() {
+        {/* render() : 리턴되는 html형식의 코드를 화면에 그려주는 함수,
+            화면 내용이 변경되는 시점에서 자동으로 호출된다.
+         */}
+        return (
+            <div>
+               <h1> 클래스 컨포넌트 사용하기</h1> 
+            </div>
+        );
+    }
+}
+export default R01_Component;
+
+[1-2. App.js 만들기]
+import React from 'react';
+import Component from './component02/R01_Component';
+
+function App() { 
+  return(
+    <div className="App">
+        <Component />
+    </div>
+  )
+}
+
+export default App;
+
+[2. 생명 주기: super()]
+[2-1. 생명 주기: super()]
+ {/* 단한번 호출되므로 여러번 실행하면 콘솔에 출력되지 않는다. */}
+import React, { Component } from 'react';
+// import React from 'react';
+
+class R02_Lifecycle extends Component {
+    constructor(){
+        super();
+        this.name = {}
+        console.log('2. constructor');
+        {/* 단한번 호출되므로 여러번 실행하면 콘솔에 출력되지 않는다. */}
+    }
+    render() {
+        console.log('3. render')
+        return (
+            <div>
+               <h1> React Lifecycle </h1> 
+               <p>콘솔창을 열어 함수 호출을 확인하기</p>
+            </div>
+        );
+    }
+}
+
+export default R02_Lifecycle;
+[2-2. 생명 주기]
+import React from 'react';
+import Lifecycle from './component02/R02_Lifecycle';
+
+function App() {
+  console.log('1. App')
+  return(
+    <div className="App">
+        <Lifecycle />
+    </div>
+  )
+}
+
+export default App;
+
+
+[2-3. 생명 주기 : R03_Lifecycle]
+import React, { Component } from 'react';
+// import React from 'react';
+
+class R03_Lifecycle extends Component {
+    static getDerivedStateFromProps(props){
+        {/*  constructor 다음으로 호출 되는 함수     */}
+        console.log('3. getDerivedStateFromProps ' + props.props_value);
+        {/* 전달받은 props_value를 컴포넌트에서 props접근하여 출력한다. 
+        */}
+        return {}
+    }
+    
+    constructor(){
+        super();
+        this.name = {}
+        console.log('2. constructor');
+    }
+    componentDidMount(){
+        {/*  가장 마지막으로 호출 되는 함수로 화면이 모두 그려진 후에
+         실행하는 이벤트 처리와 초기화등에 활용된다.      */}
+        console.log('5. componentDidMount');
+    }
+    shouldComponentUpdate(props, state){
+        {/*  state 변경이 발생될때 실행되는 함수로 state 변경이 없다면 호출되지 않는다.     */}
+         console.log('5. shouldComponentUpdate');
+    }
+    render() {
+        console.log('4. render')
+        return (
+            <div>
+               <h1> React Lifecycle </h1> 
+            </div>
+        );
+    }
+}
+
+[2-3. 생명 주기 : App.js]
+export default R03_Lifecycle;
+import React from 'react';
+import Lifecycle from './component02/R03_Lifecycle';
+
+function App() {
+  console.log('1. App')
+  return(
+    <div className="App">
+        <Lifecycle props_value='내가 데이타'/>
+        {/* props_value를 컴포넌트에 전달하고 
+           컴포넌트에서 props로 사용한다. 
+        */}
+    </div>
+  )
+}
+
+export default App;
+
+[리액트 데이터 구성요소]
+props 프로퍼티 : 상위컴포넌트에서 하위 컴포넌트로 전달되는 읽기 전용 데이터
+context 컨텍스트 : 부모 컴포넌트에서 생성하여 모든 자식 컴포넌트에 전달하는 데이터로 읽기 전용 데이터
+state : 컴포넌트의 상태를 저장하고 변경할 수 있는 가변데이터
+
+[props : ]
+props 프로퍼티 : 상위컴포넌트에서 하위 컴포넌트로 전달되는 읽기 전용 데이터
+
+[props 1. 기본데이타 출력하기 ]
+import React, { Component } from 'react';
+
+class R04_Variable extends Component {
+    componentDidMount(){
+        var str = 'react.jsx';
+        var num = 10;
+        var boolData = true; 
+        var arry = ['a', 1, '한글'];
+        const obj = { name :'kim', age :30}
+        console.log( str )
+        console.log( num )
+        console.log( boolData )
+        console.log( arry )
+        console.log( obj )
+    }
+    render() {
+        return (
+            <div>
+                <h2> 값 초기화 방법 1 </h2>
+                <p>콘솔창을 열어 함수 호출을 확인하기</p>
+                
+            </div>
+        );
+    }
+}
+
+export default R04_Variable;
+
+[props 1.기본데이타 문자 출력 App.js]
+import React from 'react';
+import Variable from './component02/R04_Variable';
+
+function App() {
+  return(
+    <div className="App">
+        <Variable />
+    </div>
+  )
+}
+
+export default App;
+
+[props 2.기본데이타 문자 출력 App.js]
+// 문자열 전달해 보기 
+import React from 'react';
+import Props from './component02/R05_Props'
+
+function App() {
+  return (
+    <div>
+      <h1>PROPS 사용하기</h1>
+      <Props props_val="전달받은 props "/>
+    </div>
+  );
+}
+
+export default App;
+// 자식에서 사용하는 법 
+import React, { Component } from 'react';
+
+class R05_Props extends Component {
+  render() {
+    let props_value = this.props.props_val;
+    // 새로운 변수를 지정하여 수정할 수도 있음 
+    props_value += ' 수정도 가능'
+    return (
+    <div>{props_value}</div>
+    )
+  }
+}
+
+export default R05_Props;
+
+[props 3.기본데이타 bool 출력 App.js]
+import React from 'react';
+import Props from './component02/R06_Props'
+
+function App() {
+  return (
+    <div>
+      <h1>PROPS 사용하기</h1>
+      <Props BooleanTrueFalse={false}/>
+      <Props BooleanTrueFalse/>
+       // 불리언 기본데이타는 true
+    </div>
+  );
+}
+
+export default App;
+
+[props 3.기본데이타 bool 출력 R06_Props.js]
+import React, { Component } from 'react';
+
+class R06_Props extends Component {
+  render() {
+    let {
+      BooleanTrueFalse
+    } = this.props
+    //현재 변수명 새로 지정 
+    return (
+    <div style={{padding: "0px"}}>
+      {BooleanTrueFalse ? '2. ' : '1. '}
+      {BooleanTrueFalse.toString()}
+      // 기본값 출력
+    </div>
+    )
+  }
+}
+
+export default R06_Props;
+
+[props 4. 객체데이타  출력 App.js]
+import React from 'react';
+import Props from './component02/R07_Props'
+
+function App() {
+  return (
+    <div>
+      <h1>PROPS 객체 사용하기</h1>
+      <Props ObjectJson={{name:"리액트", age:"200"}}/>
+      // 객체이므로 {}안에 객체를 넣음 
+      // number는 숫자로 지정하고 문자로 전달하여 오류 발생
+    </div>
+  );
+}
+
+export default App;
+
+[props 4. 객체데이타  출력 R07_Props.js]
+import React, { Component } from 'react';
+import datatype from 'prop-types';
+
+class R07_Props extends Component {
+  render() {
+    let {
+      ObjectJson
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      {JSON.stringify(ObjectJson)}
+    </div>
+    )
+  }
+}
+
+R07_Props.propTypes = {
+  ObjectJson: datatype.shape({
+    name: datatype.string,
+    age: datatype.number
+  })
+}
+
+export default R07_Props;
+
+[props 5. 객체데이타  출력 R08_App.js]
+import React from 'react';
+import PropsRequired from './component02/R08_Props'
+
+function App() {
+  return (
+    <div>
+      <h1>필수 데이타 지정</h1>
+      // 에러 확인 후 추가
+      // <PropsRequired name={"kim"}/>
+      <PropsRequired age={200}/>
+    </div>
+  );
+}
+
+export default App;
+
+[props 5. 객체데이타  출력 R08_Props.js]
+import React, { Component } from 'react';
+import datatype from 'prop-types';
+
+class R08_Props extends Component {
+  render() {
+    let {
+      name,
+      age
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      {name}{age}
+    </div>
+    )
+  }
+}
+
+R08_Props.propTypes = {
+    name: datatype.isRequired,
+}
+
+export default R08_Props;
+
+
+[props 6. 객체데이타  출력 R09_App.js]
+import PropsNode from './component02/R09_Props'
+
+function App() {
+  return (
+    <div>
+      <h1> 노드를 전달!</h1>
+      <PropsNode>
+        <span> span 태그를 전달함 </span>
+      </PropsNode>
+    </div>
+  );
+}
+
+export default App;
+
+[props 6. 객체데이타  출력 R09_Props.js]
+import React, { Component } from 'react';
+class R09_PropsNode extends Component {
+    render() {
+      return (
+      <div style={{padding: "0px"}}>
+        {this.props.children}
+      </div>
+      )
+    }
+  }
+  
+  export default R09_PropsNode;
+
+[example : 오늘 할일 컴포넌트를 만들어 보세요.]
+[ todo App ]
+import React from 'react';
+import Todo from './component02/Todo';
+
+function App() {
+  return (
+    <div className="App">
+      <Todo tododata={'반응형페이지제작'} />
+      <Todo tododata={'통합페이지제작'} />
+      <Todo tododata={'리엑트 다루기'} />
+    </div>
+    );
+}
+
+export default App;
+
+[Todo.js]
+import React, { Component } from 'react';
+
+class Todo extends Component {
+    render() {
+        let { 
+            tododata
+         } = this.props;
+        return (
+            <nav  style={{backgroundColor :'skyblue'}}>
+                <ul>
+                    <li>{tododata}</li>
+                </ul>
+            </nav>
+        );
+    }
+  }
+
+export default Todo; 
+
+[다양한 데이터를 출력해보세요.]
+import React from 'react';
+import Datatype from './component02/Datatype';
+[1. App.js 다양한 데이터를 출력해보세요.]
+function App() {
+  const array = [1,2,3];
+  const obj = {name:'kim', age:30};
+  const node = <h1>제목노드</h1>;
+  const func = ()=>{ console.log('메시지')}
+  return (
+    <Datatype
+        boolValue={true}
+        numValue={1}
+        arrayValue={array}
+        objValue={obj}
+        nodeValue={node}
+        funcValue={func}
+    ></Datatype>
+    );
+}
+/*
+[1. App.js 다양한 데이터를 출력해보세요.]
+function App() {
+  return (
+    <Datatype
+        boolValue={true}
+        numValue={1}
+        arrayValue={[1,2,3]}
+        objValue={{name:'kim', age:30}}
+        nodeValue={<h1>제목노드</h1>}
+        funcValue={()=>{ console.log('메시지')}}
+    ></Datatype>
+    );
+}
+*/
+export default App;
+
+[1. Datatype.js 다양한 데이터를 출력해보세요.]
+import React from 'react';
+import PropTypes from 'prop-types';
+
+class Datatype extends React.Component {
+  render() {
+    const {
+      boolValue,
+      numValue,
+      arrayValue,
+      objValue,
+      nodeValue,
+      funcValue,
+    } = this.props;
+
+    return (
+      <ul>
+        <li>불리언값: {boolValue}</li>
+        <li>숫자값: {numValue}</li>
+        <li>배열값: {arrayValue}</li>
+        <li>객체값: {String(Object.entries(objValue))}</li>
+        <li>노드값: {nodeValue}</li>
+        /** {this.props.children} 노드 출력하는 법 */
+        <li>함수값: {String(funcValue)}</li>
+        /** 문자열로 바꾸어 출력  */
+      </ul>
+    );
+  }
+}
+
+Datatype.propTypes = {
+  boolValue: PropTypes.bool,
+  numValue: PropTypes.number,
+  arrayValue: PropTypes.arrayOf(PropTypes.number),
+  objValue: PropTypes.object,
+  nodeValue: PropTypes.node,
+  funcValue: PropTypes.func,
+ } 
+
+export default Datatype;
+
+[example : header, nav, article 컴포넌트에 속성을 넣기 ]
+import React from 'react';
+import Subject from './component02/Subject';
+import TOC from './component02/TOC';
+import Content from './component02/Content';
+
+function App() {
+  return (
+    <div className="App">
+        <Subject title="WEB" sub="world wide web!" /> 
+        <Subject title="React" sub="For UI" />    
+        <TOC></TOC>
+        <Content title="HTML" desc="HTML is HyperText Markup Language." />
+    </div>
+    );
+}
+
+export default App;
+
+
+import React, { Component } from 'react';
+
+class TOC extends Component {
+    render() {
+      return (
+        <nav  style={{backgroundColor :'skyblue'}}>
+            <ul>
+                <li><a href="1.html">HTML</a></li>
+                <li><a href="2.html">CSS</a></li>
+                <li><a href="3.html">JavaScript</a></li>
+            </ul>
+        </nav>
+      );
+    }
+  }
+
+export default TOC; 
+
+
+import React, { Component } from 'react';
+
+export default class Content extends Component {
+    render() {
+      return (
+        <article>
+            <h2>{this.props.title}</h2>
+            {this.props.desc}
+        </article>
+      );
+    }
+  }
+
+  import React, { Component } from 'react';
+
+
+export default class Subject extends Component {
+  render() {
+    return (
+      <header>
+          <h1>{this.props.title}</h1>
+          {this.props.sub}
+      </header>  
+    );
+  }
+}

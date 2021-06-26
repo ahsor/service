@@ -1,0 +1,628 @@
+D:\service>create-react-app -V
+4.0.3
+
+D:\service>create-react-app --version
+4.0.3
+
+D:\service>create-react-app .
+
+D:\service>code .
+
+D:\service>npm start
+
+> service@0.1.0 start D:\service
+> react-scripts start
+
+서버 종료 > 터미널창에서 ctrl + c
+일괄 작업을 끝내시겠습니까 (Y/N)? y
+
+D:\service>create-react-app .
+
+[1. 기본 문자 출력]
+// import logo from './logo.svg';
+// import './App.css';
+// import React from 'react';
+
+function App() {
+  return (
+    <div className="App">
+      Hello React!!
+    </div>
+  );
+}
+
+export default App;
+
+[2. 기본태그 출력]
+import React from 'react';
+
+function App() {
+  return (
+    <div className="App">
+      <h1> 태그 출력 </h1>
+      <p> html이라고 쓰고 jsx라고 읽는다. </p>
+    </div>
+  );
+}
+
+export default App;
+
+[3. css 디자인 ]
+import React from 'react';
+
+function App() {
+  return (
+    <div className="App">
+      // <h1 style={{ 디자인코드 }}></h1>
+      <h1 style={{
+        color:"purple",
+        backgroundColor:'lavender'
+        // - 표현 안되고 카멜케이스로 사용해야함 
+        // 특별한 경우가 아니면 인라인 표기법은 사용하지 않음 
+      }}
+      > css 적용 </h1>
+    </div>
+  );
+}
+
+export default App;
+
+[4. 변수 사용하기]
+import React from 'react';
+
+function App() {
+  let value = 10;
+  let userName ='kim';
+  return (
+    <div className="App">
+      <h1> 객체 사용하기 </h1>
+      <p> 선언된 value 변수 = {value}</p>
+      <p> 사용자 = {userName} 이라지요. </p>
+    </div>
+  );
+}
+
+export default App;
+
+
+[5. 객체 사용하기]
+import React from 'react';
+
+function App() {
+  const naver = { 
+    name:"naver",
+    url:'https://www.naver.com/'
+  }
+  return (
+    <div className="App">
+      <h1> 객체 사용하기 </h1>
+      <a href={naver.url}>{naver.name}</a>
+      // href의  따옴표 없는 것 주의
+      // 화면 띄운 후 링크를 검사(F12)하여 element 창에서 
+      // <a href="https://www.naver.com/">naver</a> 로 생성되는 것 확인
+    </div>
+  );
+}
+
+export default App;
+
+[6. 컴포넌트 사용하기]
+[6-1. Hello 컴포넌트 사용하기]
+컴포넌트 폴더를 만들고 내부에 Hello.js 파일 생성 
+컴포넌트는 항상 대문자로 시작하여야 한다. 
+// 1. 
+const Hello = function () {
+    return  <p>Hello</p>
+}
+export default Hello;
+
+// 2.
+export default function Hello() {
+    return  <p>Hello</p>
+}
+export default Hello;
+
+// 3.
+const Hello = () =>{
+   return <p>Hello</p>
+}
+export default Hello;
+
+[만들어진 컴포넌트 적용하기]
+import './App.css';
+import Hello from './component01/Hello';
+// .js확장자는 생략하고 표시한다. 
+
+function App(){  
+  return(
+    <div className="App">
+        <Hello> 내용 </Hello>
+        // 내용이 없기 때문에 다음과 같이 쓰는 것이 바람직
+        // 주석은 주의해서 사용한다. 
+        <Hello /> 
+    </div>
+  )
+}
+export default App;
+
+[6-2. Welcome.jsx 컴포넌트 적용하기 ]
+// component폴더에 Welcome.jsx만들기 
+리액트에서 js 또는 jsx 파일의 확장자를 생략해도 해당 파일를 자동으로 찾을 수 있게 설정 되어 있다. 
+이것은 웹팩 코드 검색 확장자 기능 덕분임 
+1. 먼저 확장자가 있는 파일을 먼저 import 하고
+2. 확장자가 없는 경우 웹팩의 확장자 옵션 목록을 보고 해당 확장자를 포함한 파일이 있는 지 확인 후 import 한다. 
+예) import 'MyFile' ; 인경우 
+    MyFile.js > MyFile.jsx 순으로 import
+3. 만약 없으면 같은 이름의 폴더가 있다면 그안에 있는 index 파일을 검색함
+예) import 'MyFile' ; 인경우
+    MyFile.js > MyFile.jsx > index.js > index.jsx 순으로 import
+
+
+
+export default function Welcome(){
+    return <h1>Welcome</h1>
+}
+[Welcome 컴포넌트 적용하기] 
+import React from 'react';
+import Hello from './component01/Hello';
+import Welcome from './component01/Welcome';
+
+function App() {
+  return (
+    <div className="App">
+      <h1> 컴포넌트 사용하기 </h1>
+      <Hello /> 
+      <Welcome />
+    </div>
+  );
+}
+
+export default App;
+
+[6-3. Hello 컴포넌트에서 World 컴포넌트 사용하기]
+// component폴더에 World.js만들기 
+export default function World() {
+    return  (
+        <h2>World!!</h2>
+    )
+}
+
+// 같은 폴더에서 컴포넌트를 사용하므로 임포트 폴더 경로 주의
+import World from './World';
+
+export default function Hello() {
+    return  (
+        <div>
+        // react 는 무조건 하나의 루트 태그만 사용하므로 하나의 태그로 감싸주어야 한다. 
+        // 만약 태그를 굳이 사용할 필요 없을 경우 <> 빈태그로 감싸주어도 된다. 
+            <h1>Hello</h1>
+            <World />
+            <World />
+            <World />
+        // 같은 컴포넌트를 여러번 사용 할 수 있으므로 다음처럼 추가 할 수 있고 
+        // 앱컴포넌트에서도 여러번 사용할 수 있다. 
+        </div>
+    )
+}
+
+[만들어진 컴포넌트 적용하기]
+import './App.css';
+import Hello from './component01/Hello';
+import Welcome from './component01/Welcome';
+// .js확장자는 생략하고 표시한다. 
+
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <Hello />
+        <Hello /> // 여러번 사용가능, 어디에든 몇번이든 재사용 가능 
+        <Welcome />
+    </div>
+  )
+}
+export default App;
+
+[7. 컴포넌트 디자인 사용하기-css 바꾸는 방법 3가지]
+1. 프로젝트 생성하면 있는 index.css와 app.css를 사용하는 법
+// index.css는 전체 프로젝트에 영향을 미치는 스타일
+// App.css는 App컴포넌트에 한정된 내용 스타일 
+// App.css는 모든 하위 컴포넌트까지 오버라이딩되어서 전체 컴포넌트가 디자인 되는 문제 발생 
+// 다음은 문제가 발생되는 것 확인 한 것임 
+
+2. App.js 컴포넌트 디자인 
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <div className="box" /> // 박스 클래스 생성 
+    </div>
+  )
+}
+3. App.css 에서 .box 디자인 하기 
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+[7-1. Hello 컴포넌트에서 인라인 방법으로 사용하는 방법]
+ // - 표현 안되고 카멜케이스로 사용해야함 
+ // 특별한 경우가 아니면 인라인 표기법은 사용하지 않음 
+import World from "./World";
+export default function Hello() {
+    return  (
+        <div>
+            <h1 style={{
+                color:'#f0f',
+                borderBottom:'2px solid #000',
+                marginBottom:'50px',
+                opacity:1
+            }}>Hello</h1>
+            <World />
+        </div>
+    )
+}
+[7-2. Hello 컴포넌트에서 외부 .box 디자인 하기 사용하는 방법]
+// component폴더에 컴포넌트 이름과 같은 Hello.css 를 생성하고 디자인
+// class는 html 예약어이므로 className으로 지정해야 함
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+}
+
+[Hello 컴포넌트에 .box 디자인 하기 ]
+// 같은 폴더의 Hello.css 임포트 
+import World from './World';
+import './Hello.css';
+
+export default function Hello() {
+    return  (
+        <div>
+            <h1 className="box">Hello</h1>
+            // class는 html 예약어이므로 className으로 지정해야 함
+            <World />
+        </div>
+    )
+}
+
+//F12검사하면  Hello컴포넌트와 App 컴포넌트 클래스가 같아지므로 오버라이됨 확인
+
+
+[7-3. 컴포넌트 모듈을 사용하는 방법 ]
+// 파일명은 아무것이나 상관 없지만 보통 컴포넌트 이름과 맞춘다. 
+3-1. component 폴더에 "Hello.module.css" 생성 후 다음과 같이 디자인 
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+
+3-2. Hello.js 설계
+// 임포트 주의, 스타일클래스 사용법도 주의
+import World from './World';
+import './Hello.css';
+import  styles from './Hello.module.css';
+
+export default function Hello() {
+    return  (
+        <div>
+            <h1 className="box">Hello</h1>
+            <h2 className={styles.box2}>Hello2</h2>
+            <div className={styles.box2}>MyBox</div>
+            <World />
+        </div>
+    )
+}
+
+[3-3. example : App.module.css파일을 생성하여 다음과 같이 디자인]
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+[3-3. example : App.js 에서 사용 하기 ]
+import Hello from './component01/Hello';
+import styles from './App.module.css';
+// 임포트 주의
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <div className={styles.box} />
+        // 사용법 달라짐 
+    </div>
+  )
+}
+export default App;
+// 컴포넌트 단위로 달리 디자인 하여야 하며 
+// 프로젝트 단위가 크지 않은 경우 index.css에서 디자인하여도 된다. 
+
+[8. 이미지 사용하기]
+[8-1. 상단에 import한 후 태그에서 적용]
+이미지 폴더를 commponents 폴더와 같은 위치에 img 폴더 만들기 
+import로 모듈을 불러오는 경우 사용하지 않는 코드들은  빌드 시 제거된다. 
+결과적으로 코드량이 줄어들고 성능적으로 우수해진다.
+최초의 프로젝트 App.js 의 로고 로딩법 
+import logo from './logo.svg';
+<img src={logo} />
+
+import logo from '../../img/layout/logo.jpg';
+<img src={logo} height="65px" width="200px" alt=""/>
+
+[8-2. require()를 사용하는 법]
+이미지 폴더를 commponents 폴더와 같은 위치에 img 폴더 만들기 
+모듈을 동적으로 불러올 수는 있지만 불필요한 코드까지 불러오는 문제 발생 
+<img src={require('../../img/layout/logo.jpg')} height="65px" width="200px" alt=""/>
+엑박으로 뜨는 경우는 require만 붙이면 이미지 객체가 아닌것으로 로드되므로 .default붙여 
+이미지로 생성 
+<img src={require('../../img/layout/logo.jpg').default} height="65px" width="200px" alt=""/>
+오류수정 참고 사이트 
+https://stackoverflow.com/questions/43247696/javascript-require-vs-require-default
+
+[8-3. 공용하는 public 폴더에 ./img 폴더를 만든 후 다음과 같이 접근]
+주의할 점은 public은 공용 공간으로 경로가 ./img임에 주의
+<img src='./img/layout/logo.jpg' height="65px" width="200px" alt=""/>
+
+[9. 이벤트 사용하기 ]
+[9-1. 버튼에 매개변수 없는 함수 이벤트 연결하기 ]
+import React from 'react';
+
+function App() {
+  function showName() {
+    console.log('kim');
+  }
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <button onClick={showName}>Show Name</button>
+        {/*// 매개변수가 없는 경우 ()를 사용하지 않는다. */}
+        <button onClick={()=>{
+            console.log( 30 )
+        }}>Show Age</button>
+    </div>
+  )
+}
+
+export default App;
+
+[9-2. 버튼에 매개변수 없는 함수 이벤트 연결하기 ]
+// import logo from './logo.svg';
+// import './App.css';
+import React from 'react';
+
+function App() {
+  function showName( name ) {
+    console.log( name);
+  }
+  
+  function showAge( age ) {
+    console.log( age);
+  }
+
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <button onClick={()=>{
+          showName('kim')
+        }}>Show Name</button>
+        {/* // 매개변수가 없는 경우 ()를 사용하지 않는다.  */}
+        <button onClick={()=>{
+           showAge(30)
+        }}>Show Age</button>
+    </div>
+  )
+}
+
+export default App;
+
+[9-3. 키이벤트 사용하여 텍스트 쓰기]
+import React from 'react';
+import Hello from './component03/Hello03';
+
+function App() {
+  const onSubmit = ()=>{
+    alert('submit call')
+  }
+  
+  const onKeyUp = ()=>{
+    alert('key up')
+  }
+  const onKeyUpEnter = (e)=>{
+    if(e.keyCode === 13){
+        alert('enter key up')
+    }
+  }
+
+  return (
+    <div className="App">
+         <button onClick={()=> alert('Hello')}> submit </button>
+         <button onClick={onSubmit}> onSubmit call </button>
+         <input onKeyUp={ onKeyUp } />
+         <input onKeyUp={ onKeyUpEnter } />
+    </div>
+    );
+}
+
+export default App;
+
+ 
+[9-4. 키이벤트 사용하여 텍스트 쓰기]
+import React, { Component } from 'react';
+  function showText(e) {
+    console.log(e.target.value);
+  }
+
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <input type="text" onChange={showText} />
+        // 함수 정의 없이 다음과 같이 바꿀수 있다.
+        <input type="text" onChange={e=>{ 
+            console.log(e.target.value )
+          }} 
+        />
+    </div>
+  )
+}
+export default App;
+
+[10. deployment ]
+브라우저 개발자 도구(F12)를 연상태에서 리로드 버튼을 마오하면 일반 새로고침, 강력새로고침, 캐시비우기 3개의 메뉴가 나온다. 
+이때 강력새로고침을 한 후 디버그창의 Network 속성선택하여 상태표시줄을 확인하면 
+1.7MB 사용하고 있다는 것을 확인 할 수 있음 
+이유는 리액트가 개발의 편의를 위해 추가한 파일들이 있어서 무거운 상태 
+개발자는 혼자 사용하는 것이라 상관 없으나 
+클라이언트 사용자는 min파일로 최적화 시켜서 사용할 수 있도록 해야 한다. 
+
+=== 실행 ====================
+PS D:\react\myact> npm run build
+
+> myact@0.1.0 build D:\react\myact
+> react-scripts build
+
+Creating an optimized production build...
+Compiled successfully.
+
+File sizes after gzip:
+
+  41.83 KB        build\static\js\2.23933408.chunk.js
+  1.56 KB (+1 B)  build\static\js\3.c44b02c4.chunk.js
+  1.16 KB (-1 B)  build\static\js\runtime-main.0fbf8933.js        
+  621 B (-59 B)   build\static\js\main.4f770e99.chunk.js
+  251 B (-323 B)  build\static\css\main.ae55d4c1.chunk.css        
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  npm install -g serve
+  serve -s build
+
+Find out more about deployment here:
+
+npm run build 실행으로 최적화된 빌드 파일을 만들수 있음 
+빌드 후 작업 폴더를 확인하면 >build가 생성되어 있고 리로드한 후 index.html을 
+확인하면 공백과 같은 불필요한 내용을 모두 제거한 상태로 최적화됨을 확인할 수 있음 
+실제 서비스는 build 안쪽 파일을 서비스하면 됨
+
+npm install -g serve 는 npm으로 설치할 수 있는 간단한 웹서버를 실행한다는 뜻이며
+serve -s build 는 build폴더를 루트로 하여 서비스 하겠다 라는 뜻임 
+
+=== 서버 만들고 실행 =========================
+PS D:\react\myact> npm install -g serve
+
+C:\Users\jemicom\AppData\Roaming\npm\serve -> C:\Users\jemicom\AppData\Roaming\npm\node_modules\serve\bin\serve.js
++ serve@11.3.2
+added 78 packages from 39 contributors in 12.202s
+
+PS D:\react\myact> serve -s build
+
+   ┌──────────────────────────────────────────────────┐
+   │                                                  │
+   │   Serving!                                       │
+   │                                                  │
+   │   - Local:            http://localhost:5000      │
+   │   - On Your Network:  http://192.168.0.31:5000   │
+   │                                                  │
+   │   Copied local address to clipboard!             │
+   │                                                  │
+   └──────────────────────────────────────────────────┘
+
+표시된 주소 http://localhost:5000 다시 접속하고
+다시 브라우저 개발자 도구(F12) > 디버그창의 Network 속성선택하여 상태표시줄을 확인하면 
+147KB 사용하고 있다는 것을 확인 할 수 있음 
+
+
+[example : header, nav, article 컴포넌트 만들기 ]
+import React, { Component } from 'react';
+class Subject extends Component {
+  render() {
+    return (
+      <header style={{backgroundColor :'green'}}>
+          <h1>WEB</h1>
+          <p>world wide web!</p>
+      </header>  
+    );
+  }
+}
+export default Subject; 
+
+import React, { Component } from 'react';
+class TOC extends Component {
+    render() {
+      return (
+        <nav  style={{backgroundColor :'skyblue'}}>
+            <ul>
+                <li><a href="1.html">HTML</a></li>
+                <li><a href="2.html">CSS</a></li>
+                <li><a href="3.html">JavaScript</a></li>
+            </ul>
+        </nav>
+      );
+    }
+  }
+export default TOC; 
+
+import React, { Component } from 'react';
+class Content extends Component {
+    render() {
+      return (
+        <article  style={{backgroundColor :'gray'}}>
+            <h2>HTML</h2>
+            <p>HTML is HyperText Markup Language.</p>
+        </article>
+      );
+    }
+  }
+
+import React from 'react';
+import Subject from './component01/Subject';
+import TOC from './component01/TOC';
+import Content from './component01/Content';
+
+function App() {
+  return (
+    <div className="App">
+      <Subject></Subject>
+      <TOC></TOC>
+      <Content></Content>
+    </div>
+    );
+}
+export default App;
+
+[example : 오늘 할일 컴포넌트를 만들어 보세요.]
+import React, { Component } from 'react';
+
+class TodaysPlan extends Component {
+    render() {
+        return (
+            <div className='message-container'>
+                쉬고싶다. 
+            </div>
+        );
+    }
+}
+
+export default TodaysPlan;
+
+import React, { Component } from 'react';
+import TodaysPlan from './03/TodaysPlan';
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <TodaysPlan></TodaysPlan>
+      </div>
+    );
+  }
+}
+
+export default App;

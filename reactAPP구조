@@ -1,0 +1,1384 @@
+[jsx]
+JavaScript + Xml => 바벨을 이용하여 웹문서로 변환하는 과정이 필요
+선언형 화면구성
+클래스 컴포넌트 : 대부분의 컴포넌트를 모두 갖고 있음 
+함수형 컴포넌트 : 출력함수 부분만 간략히 구성한 컴포넌트지만 
+           최근엔 함수 컴포넌트로 구현하는 것이 추세이지만
+           클래스 컴포넌트 이해 없이 사용할 수 없음
+           
+
+public 디렉토리 
+index.html 이 있는 곳으로 현재 실행되고 있는 화면임
+<div id='root'></div>
+구조 안에 내용을 넣게 되어 있음 
+디버그 창으로 확인하면 리액트가 만들어준 node로 구성되어 있음 
+그중에 최상위 구조로 
+<div class='App'> ...</div>으로 되어 있고 
+이 App 클래스는 src 디렉토리에 있음 
+
+대부분 제작되는 모든 파일은 src 안에 넣어야 함 
+폴더 구조는 src>day01>component.js
+폴더 구조는 src>day01>script.js
+
+간단한 자바스트립트 테스트는 
+node ./src/02/02-2.js
+앱 컴포넌트는 
+npm start로 app.js 실행
+
+
+
+
+src폴더 중 진입파일은 index.js 파일로 
+내용을 살펴 보면 
+ReactDOM.render(<App />, document.getElementById('root'))
+
+document.getElementById('root')은 index.html의  <div id='root'></div>을 말하고
+<App />은 
+import App from './App';
+로드된 컴포넌트 App을 말함, 즉 실제 src의 App.js를 말하는 것임
+
+App.js가 실제 구현될 내용이며 
+함수방식으로 되어 있는 것을 클래스 방식으로 수정하여 사용해야 함 
+
+import './App.css';
+import logo from './logo.svg';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+[1. html 적용하기 ]
+import React, { useState } from 'react';
+
+export default function App() {
+  return (
+    <div>
+      <h1>HTML 적용하기</h1>
+      <p> <i>React</i>로 파라그래프만들기 </p>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JAVASCRIPT</li>
+        <li>JQUERY</li>
+      </ul>
+    </div>
+  );
+}
+
+
+[이미지 로딩하는 법 ]
+1. 상단에 import한 후 태그에서 적용
+이미지 폴더를 commponents 폴더와 같은 위치에 img 폴더 만들기 
+import로 모듈을 불러오는 경우 사용하지 않는 코드들은  빌드 시 제거된다. 
+결과적으로 코드량이 줄어들고 성능적으로 우수해진다.
+import logo from '../../img/layout/logo.jpg';
+<img src={logo} height="65px" width="200px" alt=""/>
+
+2. require()를 사용하는 법
+이미지 폴더를 commponents 폴더와 같은 위치에 img 폴더 만들기 
+모듈을 동적으로 불러올 수는 있지만 불필요한 코드까지 불러오는 문제 발생 
+<img src={require('../../img/layout/logo.jpg')} height="65px" width="200px" alt=""/>
+엑박으로 뜨는 경우는 require만 붙이면 이미지 객체가 아닌것으로 로드되므로 .default붙여 
+이미지로 생성 
+<img src={require('../../img/layout/logo.jpg').default} height="65px" width="200px" alt=""/>
+오류수정 참고 사이트 
+https://stackoverflow.com/questions/43247696/javascript-require-vs-require-default
+
+3. 공용하는 public 폴더에 ./img 폴더를 만든 후 다음과 같이 접근
+주의할 점은 public은 공용 공간으로 경로가 ./img임
+<img src='./img/layout/logo.jpg' height="65px" width="200px" alt=""/>
+
+[2. 간단한 css 적용하기 ]
+index.js의 import 부분을 확인하면 다음과 같이 지정되어 있다. 
+import './index.css';
+즉 index.css를 디자인으로 사용하는 것으로 새로운 문법은 아니고 
+리액트가 사용하는 방식으로 이해하면 됨
+
+import App from './App'; 
+위코드의 App은 리액트 최상위 객체 이름으로 첫글자는 반드시 대문자를 사용해야 한다. 
+'./App' 부분은 파일명으로 실제로 사용된 파일명 으로 지정하여야 한다. 
+
+index.css에서 body 디자인에 배경색을 추가해 본다. 
+body {
+  background-color: skyblue;
+  ...
+}
+
+저장하면 자동으로 리액트가 새로 실행되며 배경색이 변경됨을 알 수 있다. 
+App.js가 가지고 있는 import './App.css'; 는 리엑트가 실행될때 컴포넌트 자체가 실행 해야 하는 디자인 임
+
+실제 디자인을 위해서 
+index.css와 App.css의 내용은 모두 지워도 됨 
+
+[2-1. index.css 적용하기 ]
+div {
+  background-color: rgba(162, 127, 243);
+  color: rgb(red, green, blue);
+  padding: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #fff;
+  background-color: #2efe3e;
+  padding: 10px;
+  font-family: "궁서";
+}
+
+li {
+  list-style-type: none;
+}
+
+[2-2 함수형 컴포넌트 디자인 ]
+import './App.css';
+
+function App(){
+  return(
+    <div className="App">
+      <h1 style={{
+        color:"#fff",
+        backgroundColor:'red'
+      }}
+      > 
+      Hello, React
+      </h1>
+    </div>
+  )
+}
+export default App;
+
+[실행]
+react 설치 폴더로 들어와서
+- npm start 또는 yarn start 
+- 브라우저에 로컬 호스트 
+
+[결과]
+Hello, React!!
+
+[변수 출력]
+function App(){
+  const name = 'kim'; // 변수 만들어서 
+  return(
+    <div className="App">
+      <h1 style={{
+        color:"purple",
+        backgroundColor:'lavender'
+        // - 표현 안되고 카멜케이스로 사용해야함 
+        // 특별한 경우가 아니면 인라인 표기법은 사용하지 않음 
+      }}
+      > 
+      Hello, React {name}, <p>{ 2 + 3}</p> 
+      // 출력할 수 있고      // 연산도 가능하나  불리언이나 객체는 출력 불가능
+      </h1>
+    </div>
+  )
+}
+[변수 출력을 이용한 링크]
+import './App.css';
+
+function App(){
+  const name = 'kim';
+  const naver = { 
+      name:"naver",
+      url:'https://www.naver.com/'
+  }
+  return(
+    <div className="App">
+      <h1 style={{
+        color:"purple",
+        backgroundColor:'lavender'
+      }}
+      > 
+      Hello, React {name}, <p>{ 2 + 3}</p>
+      </h1>
+      <a href={naver.url}>{naver.name}</a>
+      // href의  따옴표 없는 것 주의
+      // 화면 띄운 후 링크를 검사(F12)하여 element 창에서 
+      // <a href="https://www.naver.com/">naver</a> 로 생성되는 것 확인
+    </div>
+  )
+}
+export default App;
+
+
+[컴포넌트 만들기 3가지 방식 ]
+컴포넌트 폴더를 만들고 내부에 Hello.js 파일 생성 
+컴포넌트는 항상 대문자로 시작하여야 한다. 
+const Hello = function () {
+    return  <p>Hello</p>
+}
+export default Hello;
+
+/////////////////////////////
+
+export default function Hello() {
+    return  <p>Hello</p>
+}
+
+////////////////////////////////////
+const Hello = () =>{
+    <p>Hello</p>
+}
+export default Hello;
+
+[만들어진 컴포넌트 적용하기]
+import './App.css';
+import Hello from './component/Hello';
+// .js확장자는 생략하고 표시한다. 
+
+function App(){  
+  return(
+    <div className="App">
+        <Hello> 내용 </Hello>
+        // 내용이 없기 때문에 다음과 같이 쓰는 것이 바람직
+        <Hello /> 
+    </div>
+  )
+}
+export default App;
+
+
+[컴포넌트 폰트 크기 바꾸기]
+const Hello = () =>{
+    return  <p style={{
+                    fontSize:'50px'
+                }}
+                >
+                Hello
+            </p>
+}
+export default Hello;
+
+[Welcome 컴포넌트 만들기 ]
+export default function Welcome(){
+    return <h1>Welcome</h1>
+} 
+[Welcome 컴포넌트 적용하기]
+import './App.css';
+import Hello from './component/Hello';
+import Welcome from './component/Welcome';
+// .js확장자는 생략하고 표시한다. 
+
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <Welcome /> 
+        // vscode는 컴포넌트 입력시 자동 import
+    </div>
+  )
+}
+export default App;
+
+
+[Hello 컴포넌트에서 World 컴포넌트 사용]
+1. component 폴더 안에 World 컴포넌트 만들기 
+
+export default function  World() {
+    return <h3>World!</h3>
+}
+
+2. component 폴더 안에 Hello 컴포넌트 만들기 
+import World from "./World";
+export default function Hello() {
+    return  (
+        <div>
+        // react 는 무조건 하나의 루트 태그만 사용하므로 하나의 태그로 감싸주어야 한다. 
+        // 만약 태그를 굳이 사용할 필요 없을 경우 <> 빈태그로 감싸주어도 된다. 
+            <h1>Hello</h1>
+            <World />
+        // 같은 컴포넌트를 여러번 사용 할 수 있으므로 다음처럼 추가 할 수 있고 
+        // 앱컴포넌트에서도 여러번 사용할 수 있다. 
+            <World />
+        </div>
+    )
+}
+3. App 컴포넌트 실행 
+import './App.css';
+import Hello from './component/Hello';
+import Welcome from './component/Welcome';
+// .js확장자는 생략하고 표시한다. 
+
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <Hello />
+        <Hello /> // 여러번 사용가능, 어디에든 몇번이든 재사용 가능 
+        <Welcome />
+    </div>
+  )
+}
+export default App;'
+
+
+[css 바꾸는 방법 3가지 ]
+1. Hello 컴포넌트에서 인라인 방법으로 사용하는 방법
+ // - 표현 안되고 카멜케이스로 사용해야함 
+ // 특별한 경우가 아니면 인라인 표기법은 사용하지 않음 
+import World from "./World";
+export default function Hello() {
+    return  (
+        <div>
+            <h1 style={{
+                color:'#ff0',
+                borderRight:'12px solid #000',
+                marginBottom:'50px',
+                opacity:1
+            }}>Hello</h1>
+            <World />
+        </div>
+    )
+}
+2. 프로젝트 생성하면 있는 index.css와 app.css를 사용하는 법
+// index.css는 전체 프로젝트에 영향을 미치는 스타일
+// App.css는 App컴포넌트에 한정된 내용 스타일 
+// App.css는 모든 하위 컴포넌트까지 오버라이딩되어서 전체 컴포넌트가 디자인 되는 문제 발생 
+// 다음은 문제가 발생되는 것 확인 한 것임 
+
+2-1. App.js 컴포넌트 디자인 
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <div className="box" /> // 박스 클래스 생성 
+    </div>
+  )
+}
+2-2. App.css 에서 .box 디자인 하기 
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+2-3. Hello 컴포넌트에 .box 디자인 하기 
+// component폴더에 Hello.css 를 생성하고 다음과 같이 디자인 
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+}
+
+2-4. Hello 컴포넌트에 .box 디자인 하기 
+import "./Hello.css";
+// 같은 폴더의 Hello.css 임포트 
+
+export default function Hello() {
+    return  (
+        <div>
+            <h1>Hello</h1>
+            <div className="box" />
+        </div>
+    )
+}
+
+//F12검사하면  Hello컴포넌트와 App 컴포넌트 클래스가 같아지므로 오버라이됨 확인
+
+
+3. 컴포넌트 모듈을 사용하는 방법 
+// 파일명은 아무것이나 상관 없지만 보통 컴포넌트 이름과 맞춘다. 
+3-1. component 폴더에 Hello.module.css 생성 후 다음과 같이 디자인 
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+}
+3-2. Hello.js 설계
+import styles from "./Hello.module.css";
+// 임포트 주의
+
+export default function Hello() {
+    return  (
+        <div>
+            <h1  className={styles.box}>Hello</h1>
+            <div className={styles.box}>Hello</div>
+        </div>
+    )
+}
+
+3-3. App.module.css파일을 생성하여 다음과 같이 디자인
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+3-4. App.js 에서 사용 하기 
+import Hello from './component/Hello';
+import styles from './App.module.css';
+// 임포트 주의
+function App(){
+  return(
+    <div className="App">
+        <Hello />
+        <div className={styles.box} />
+        // 사용법 달라짐 
+    </div>
+  )
+}
+export default App;
+// 컴포넌트 단위로 달리 디자인 하여야 하며 
+// 프로젝트 단위가 크지 않은 경우 index.css에서 디자인하여도 된다. 
+
+[이벤트 처리1 ]
+import React, { Component } from 'react';
+import Hello from './component/Hello';
+import styles from './App.module.css';
+
+function App(){
+  function showName() {
+    console.log('kim');
+  }
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <button onClick={showName}>Show Name</button>
+        // 매개변수가 없는 경우 ()를 사용하지 않는다. 
+        <button onClick={()=>{
+            console.log( 30 )
+        }}>Show Age</button>
+    </div>
+  )
+}
+export default App;
+[이벤트 처리2 : button 2번째 이벤트 연결방법의 장점 ]
+function App(){
+  function showName() {     console.log('kim');  }
+  function showAge(age) {    console.log(age);  }
+
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <button onClick={showName}>Show Name</button>
+        <button onClick={()=>{
+          showAge(30); // 매개변수 전달
+        }}>Show Age</button>
+    </div>
+  )
+}
+export default App;
+
+[텍스트 쓰기 이벤트 ]
+import React, { Component } from 'react';
+  function showText(e) {
+    console.log(e.target.value);
+  }
+
+  return(
+    <div className="App">
+        <h1>이벤트 핸들러</h1>
+        <input type="text" onChange={showText} />
+        // 함수 정의 없이 다음과 같이 바꿀수 있다.
+        <input type="text" onChange={e=>{ 
+            console.log(e.target.value )
+          }} 
+        />
+    </div>
+  )
+}
+export default App;
+
+//////////////////////////////////////
+
+[state 사용하기 ]
+// 하나의 컴포넌트에서 전역변수 처럼 사용된다. 
+// state 폴더 만들고 새로운 Hello.js 를 만들고 다음과 같이 이벤트를 처리한다. 
+// https://ko.reactjs.org/docs/getting-started.html
+// hook 사용하기 
+
+function Hello() {
+    let name = 'jemicom';
+    // state가 아니고 단순히 변수일 뿐이므로 변경되는 것임 
+    // 때문에 리엑트가 인식하지 못하고 변경하지 못하는 것임
+
+    function changeName(){
+        name = name === "jemicom" ? 'kim' : 'jemicom';
+        console.log( name );
+        // 콘솔에만 출력되고 업데이트 안되서 js로 업데이트 해주어야 한다. 
+        // document.getElementById('name').innerText = name; 
+    }
+    return (
+        <div>
+            <h1>STATE</h1>
+            <h2>{name}</h2> // 화면은 출력되지 않는다. 
+            <button onClick={changeName}>Change</button>
+        </div>
+    );
+}
+
+export default Hello;
+
+==============================================
+import React, { Component } from 'react';
+import Hello from './state/Hello';
+import styles from './App.module.css';
+// App.js 에 연결하기 
+
+function App(){
+  return(
+    <div className="App">
+       <Hello />
+    </div>
+  )
+}
+export default App;
+
+[state를 hook을 사용하여 수정 하기 ]
+import React, { useState } from 'react';
+
+function Hello() {
+    //let name = 'jemicom';
+    const [name, setName] = useState('jemicom');
+    // name은 state로 변수명으로 생각하고,
+    // setName은 state를 변경해주는 함수
+
+    function changeName(){
+        const newName = name === "jemicom" ? 'kim' : 'jemicom';
+        // 변수 선언과 아래 함수 호출 확인 할 것 
+        console.log( name );
+        //document.getElementById('name').innerText = name; 
+        setName(newName);
+    }
+    return (
+        <div>
+            <h1>STATE</h1>
+            <h2 id="name">{name}</h2>
+            <button onClick={changeName}>Change</button>
+        </div>
+    );
+}
+
+export default Hello;
+// 메인은 그대로임 
+//////////////////////////////////////
+import React, { Component } from 'react';
+import Hello from './state/Hello';
+import styles from './App.module.css';
+
+function App(){
+  return(
+    <div className="App">
+       <Hello />  // 여러번 호출해서 state값이 각각 관리되고 다른 state에 영향을 미치지 않음
+       <Hello />
+       <Hello />
+    </div>
+  )
+}
+export default App;
+
+
+[props ]
+// App.js 
+import React, { Component } from 'react';
+import Hello from './state/HelloProps';
+import styles from './App.module.css';
+
+export default function App(){
+  return(
+    <div className="App">
+      <h2> props : properties </h2>
+       <Hello age={10}/> // 값 설정 
+       <Hello age={20}/>
+       <Hello age={30}/>
+    </div>
+  )
+}
+
+////
+import React, { useState } from 'react';
+
+export default function Hello(props) {
+  // 전달받은 props 파라미터 출력하기
+    console.log( props );
+    const [name, setName] = useState('jemicom');
+
+    function changeName(){
+        const newName = name === "jemicom" ? 'kim' : 'jemicom';
+        setName(newName);
+    }
+    return (
+        <div>
+            <h1>STATE</h1>
+            <h2 id="name">{name}({props.age}세)</h2>
+            // 전달받은 props 출력 
+            // 전달받은 props는 수정할 수 없음 
+            // 만약에 수정하고 싶다면 state를 만들어야 함 
+            <button onClick={changeName}>Change</button>
+        </div>
+    );
+}
+
+[example]
+1. 인사 컴포넌트 만들기
+export default function UserName({name}) {
+    // 아무 기능도 없는 이름을 출력하는 컴포넌튿
+    return <p>Hello, {name}</p>
+}
+2. UserName를 임포트하는 HelloUserName.js 만들기 
+import React, { useState } from 'react';
+import UserName from './UserName';
+
+export default function Hello(props) {
+    console.log( props );
+    const [name, setName] = useState('jemicom');
+    const [age, setAge] = useState(props.age);
+    // 새로운 state를 만들어 사용하여 전달받은 props를 변경할 수 있음 
+    return (
+        <div>
+            <h1>STATE</h1>
+            <h2 id="name">{name}({age}세)</h2>
+            <UserName name={name} />
+            <button onClick={()=>{
+                setName(name === "jemicom" ? "kim" : "jemicom" );
+                setAge(age+1);
+            }}>Change</button>
+        </div>
+    );
+}
+3. App.js 만들기
+import React, { Component } from 'react';
+import Hello from './state/HelloUserName';
+import styles from './App.module.css';
+
+export default function App(){
+  return(
+    <div className="App">
+      <h2> props : properties </h2>
+       <Hello age={10}/>
+       <Hello age={20}/>
+       <Hello age={30}/>
+    </div>
+  )
+}
+
+[페이지 만들기 ]
+
+[1. 클래스 방식으로 수정하기 ]
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+          Hello, React!!
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[실행]
+react 설치 폴더로 들어와서
+- npm start 또는 yarn start 
+- 브라우저에 로컬 호스트 
+
+[결과]
+Hello, React!!
+
+- 파일을 수정할 때마다 자동으로 브라우저를 다시 리로드해줌 
+- return() 는 반드시 최상위 html 구조를 가지고 있어야 함 
+  때문에 div.App을 지우면 error 남을 확인
+
+[2. html 적용하기 ]
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>HTML 적용하기</h1>
+        <p> <i>React</i>로 파라그래프만들기 </p>
+        <ul>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JAVASCRIPT</li>
+          <li>JQUERY</li>
+        </ul>
+      </div>
+    );
+  }
+}
+
+
+[4-1. Component 사용하기 ]
+import React, { Component } from 'react';
+
+// App.js에 내부 컴포넌트로 삽입하기 
+class Mycomponent extends Component{
+  render(){
+    return(
+      <h2>내가 만든 컴포넌트</h2>
+    )
+  }
+}
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Component 적용하기</h1>
+        <Mycomponent> </Mycomponent>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[4-2. Component 사용하기 ]
+//src폴더에 01폴더 생성 후 mycomponent.js를 생성 후 컴포넌트 만들기
+[4-2-1.  mycomponent.js]
+import React, { Component } from 'react';
+
+export default class Mycomponent extends Component{
+    render(){
+      return(
+        <h2>내가 만든 첫번째 컴포넌트</h2>
+      )
+    }
+  }
+  
+[4-2-1.  App.js]
+import React, { Component } from 'react';
+import Mycomponent from './01/mycomponent';
+// App.js에 외부 컴포넌트 import하기 
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Component 적용하기</h1>
+        <Mycomponent> </Mycomponent>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[5. deployment ]
+브라우저 개발자 도구(F12)를 연상태에서 리로드 버튼을 마오하면 일반 새로고침, 강력새로고침, 캐시비우기 3개의 메뉴가 나온다. 
+이때 강력새로고침을 한 후 디버그창의 Network 속성선택하여 상태표시줄을 확인하면 
+1.7MB 사용하고 있다는 것을 확인 할 수 있음 
+이유는 리액트가 개발의 편의를 위해 추가한 파일들이 있어서 무거운 상태 
+개발자는 혼자 사용하는 것이라 상관 없으나 
+클라이언트 사용자는 min파일로 최적화 시켜서 사용할 수 있도록 해야 한다. 
+
+=== 실행 ====================
+PS D:\react\myact> npm run build
+
+> myact@0.1.0 build D:\react\myact
+> react-scripts build
+
+Creating an optimized production build...
+Compiled successfully.
+
+File sizes after gzip:
+
+  41.83 KB        build\static\js\2.23933408.chunk.js
+  1.56 KB (+1 B)  build\static\js\3.c44b02c4.chunk.js
+  1.16 KB (-1 B)  build\static\js\runtime-main.0fbf8933.js        
+  621 B (-59 B)   build\static\js\main.4f770e99.chunk.js
+  251 B (-323 B)  build\static\css\main.ae55d4c1.chunk.css        
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  npm install -g serve
+  serve -s build
+
+Find out more about deployment here:
+
+npm run build 실행으로 최적화된 빌드 파일을 만들수 있음 
+빌드 후 작업 폴더를 확인하면 >build가 생성되어 있고 리로드한 후 index.html을 
+확인하면 공백과 같은 불필요한 내용을 모두 제거한 상태로 최적화됨을 확인할 수 있음 
+실제 서비스는 build 안쪽 파일을 서비스하면 됨
+
+npm install -g serve 는 npm으로 설치할 수 있는 간단한 웹서버를 실행한다는 뜻이며
+serve -s build 는 build폴더를 루트로 하여 서비스 하겠다 라는 뜻임 
+
+=== 서버 만들고 실행 =========================
+PS D:\react\myact> npm install -g serve
+
+C:\Users\jemicom\AppData\Roaming\npm\serve -> C:\Users\jemicom\AppData\Roaming\npm\node_modules\serve\bin\serve.js
++ serve@11.3.2
+added 78 packages from 39 contributors in 12.202s
+
+PS D:\react\myact> serve -s build
+
+   ┌──────────────────────────────────────────────────┐
+   │                                                  │
+   │   Serving!                                       │
+   │                                                  │
+   │   - Local:            http://localhost:5000      │
+   │   - On Your Network:  http://192.168.0.31:5000   │
+   │                                                  │
+   │   Copied local address to clipboard!             │
+   │                                                  │
+   └──────────────────────────────────────────────────┘
+
+표시된 주소 http://localhost:5000 다시 접속하고
+다시 브라우저 개발자 도구(F12)를 연상태에서  디버그창의 Network 속성선택하여 상태표시줄을 확인하면 147KB 사용하고 있다는 것을 확인 할 수 있음 
+
+
+[example : header, nav, article 컴포넌트 만들기 ]
+import React, { Component } from 'react';
+import './App.css';
+
+class Subject extends Component {
+  render() {
+    return (
+      <header>
+          <h1>WEB</h1>
+          world wide web!
+      </header>  
+    );
+  }
+}
+
+class TOC extends Component {
+  render() {
+    return (
+      <nav>
+          <ul>
+              <li><a href="1.html">HTML</a></li>
+              <li><a href="2.html">CSS</a></li>
+              <li><a href="3.html">JavaScript</a></li>
+          </ul>
+      </nav>
+    );
+  }
+}
+
+class Content extends Component {
+  render() {
+    return (
+      <article>
+          <h2>HTML</h2>
+          HTML is HyperText Markup Language.
+      </article>
+    );
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Subject></Subject>
+        <TOC></TOC>
+        <Content></Content>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[example : 오늘 할일 컴포넌트를 만들어 보세요.]
+import React, { Component } from 'react';
+
+class TodaysPlan extends Component {
+    render() {
+        return (
+            <div className='message-container'>
+                쉬고싶다. 
+            </div>
+        );
+    }
+}
+
+export default TodaysPlan;
+
+import React, { Component } from 'react';
+import TodaysPlan from './03/TodaysPlan';
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <TodaysPlan></TodaysPlan>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+=============실행 ============
+localhost:3000
+
+리액트에서 js 또는 jsx 파일의 확장자를 생략해도 해당 파일를 자동으로 찾을 수 있게 설정 되어 있다. 
+이것은 웹팩 코드 검색 확장자 기능 덕분임 
+1. 먼저 확장자가 있는 파일을 먼저 import 하고
+2. 확장자가 없는 경우 웹팩의 확장자 옵션 목록을 보고 해당 확장자를 포함한 파일이 있는 지 확인 후 import 한다. 
+예) import 'MyFile' ; 인경우 
+    MyFile.js > MyFile.jsx 순으로 import
+3. 만약 없으면 같은 이름의 폴더가 있다면 그안에 있는 index 파일을 검색함
+예) import 'MyFile' ; 인경우
+    MyFile.js > MyFile.jsx > index.js > index.jsx 순으로 import
+
+
+[React Developer Tools 설치하기]
+크롬 앱스토어를 이용하여 React Developer Tools 설치한 후 
+F12 > component 속성이 생기고 이것으로 react 구조를 확인할 수 있음 
+
+
+[Reactjs code snippets 설치하기]
+리엑트에서 자주 사용되는 코드를 자동 생성해주는 플러그인 
+설치후 리로드 
+https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
+로 연결되면 명령어 단축 코드를 나열하고 있음 
+RCC : 기본 리액트 컴포넌트 코드를 생성
+RCCP : 프로퍼티 타입과 함께 리액트 컴포넌트 코드를 생성
+RCFC : 생명주기와 함께 리액트 컴포넌트 코드를 생성
+rpc : 리액트 퓨어 컴포넌트를 생성
+rsc : 함수형 컴포넌트를 생성
+rscp : 프로퍼티 타입과 함께 함수형 컴포넌트를 생성
+
+[Prettier 설치하기]
+자동으로 Prettier 설정 적용하기 
+Preferences > Settings > formatOnSave 체크
+
+[ repl.it 가입하기 ]
+1. repl.it 접속
+2. 구글, 깃업등 이용하여 signup 회원등록
+3. +new reple 버튼으로 새 리플 생성 
+4. 입력창에 react 입력
+5. create react app 선택
+6. 프로젝트명 입력 
+
+[생명 주기]
+[리액트 데이터 구성요소]
+프로퍼티 : 상위컴포넌트에서 하위 컴포넌트로 전달되는 읽기 전용 데이터
+컨텍스트 : 부모 컴포넌트에서 생성하여 모든 자식 컴포넌트에 전달하는 데이터로 읽기 전용 데이터
+state : 컴포넌트의 상태를 저장하고 변경할 수 있는 가변데이터
+
+[6. 프로퍼티 = props 사용하기 ]
+<img src="http://www.naver.com/logo.jpg">
+의 src가 프로퍼티명, 경로는 프로퍼티값
+<div id="root"> 프로퍼티명 id, 값은 root
+상위컴포넌트에서 하위 컴포넌트로 전달되는 읽기 전용 데이터로 
+props를 전달받은 자식 컴포넌트에서는 데이터를 수정할 수 없다. 
+props를 수정하기 위해서는 const name = this.props.name;와 같이 
+컴포넌트 내부에서 사용하는 변수를 이용해야한다. 
+
+[6-1. 문자 프로퍼티 사용하기 ]
+04/PropsComponent.jsx로 저장
+import React, { Component } from 'react';
+
+class PropsComponent extends Component {
+    render() {
+        const name = this.props.name;
+        return (
+            <div>
+               {name}
+            </div>
+        );
+    }
+}
+export default PropsComponent;
+
+
+import React, { Component } from 'react';
+import PropsComponent from './04/PropsComponent';
+import './App.css';
+class App extends Component {
+  render() {
+    return (
+      <PropsComponent name="hello"></PropsComponent>
+      // 문자열 전송, 숫자등을 넘겨도 모두 문자로 취급됨
+      <PropsComponent name={2}></PropsComponent>
+      // js 표현식을 이용하여 숫자를 넘김
+      <PropsComponent name={true}></PropsComponent>
+      // js 표현식을 이용하여 불리언를 넘김
+      <PropsComponent name={[ 2, 3, 4]}></PropsComponent>
+      // js 표현식을 이용하여 배열를 넘김
+      <PropsComponent name={<span>jsNode</span>}></PropsComponent>
+      // js 표현식을 이용하여 자바스크립트 노드를 넘김
+      <PropsComponent name={함수}></PropsComponent>
+      // js 표현식을 이용하여 다양한 내용을 전달할 수 있음
+      
+    );
+  }
+}
+
+export default App;
+
+[6-2. 문자 프로퍼티 수정하기 ]
+import React, { Component } from 'react';
+import './App.css';
+
+class Mycomponent extends Component{
+  render(){
+    let name = this.props.name; 
+    name += '수정된 데이타'  ////////////////////////
+    return(
+      <span>{name}</span>
+    )
+  }
+}
+class App extends Component {
+  render() {
+    return (
+      <div className='body'>
+        <Mycomponent name='message'></Mycomponent>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+/////////////////////////////////
+import React, { useState } from 'react';
+
+export default function Hello(props) {
+    console.log( props );
+    const [name, setName] = useState('jemicom');
+    const [age, setAge] = useState(props.age);
+    // 새로운 state를 만들어 사용하여 전달받은 props를 변경할 수 있음 
+    return (
+        <div>
+            <h1>STATE</h1>
+            <h2 id="name">{name}({age}세)</h2>
+            <button onClick={()=>{
+                setName(name === "jemicom" ? "kim" : "jemicom" );
+                setAge(age+1);
+            }}>Change</button>
+        </div>
+    );
+}
+
+[6-3. props 자료형 선언하기 ]
+import React, { Component } from 'react';
+import './App.css';
+import PropTypes from 'prop-types';
+
+class PropsComponent extends Component{
+  render(){
+    return(
+      <div>{this.props.name}</div>
+    )
+  }
+}
+
+PropsComponent.propTypes={
+  name:PropTypes.string,
+}
+// 자식 컴포넌트에 대한 데이터타입을 선언해두면 
+// 부모에서 넘어오는 props 변수의 데이타와 비교하고 
+// 이때 일치하지 않으면 경고메시지가 뜬다. 
+
+class App extends Component {
+  render() {
+    return (
+      <div className='body'>
+        <PropsComponent name='화이팅!!'></PropsComponent>
+      </div>
+    );
+  }
+}
+
+[6-4. boolean 타입 데이터 사용하기 ]
+import React, { Component } from 'react';
+import './App.css';
+
+class PropsBoolean extends Component {
+  render() {
+    let {
+      BooleanTrueFalse
+    } = this.props
+    return (
+      <div style={{padding: "0px"}}>
+        {BooleanTrueFalse ? '2. ' : '1. '}
+        {BooleanTrueFalse.toString()}
+      </div>
+    )
+  }
+}
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>Start React boolean!</h1>
+        <p>CSS 적용하기</p>
+        <PropsBoolean BooleanTrueFalse={false}/>
+        <PropsBoolean BooleanTrueFalse/>
+      </div>
+    );
+  }
+}
+
+export default App;
+[6-5. Object 타입 데이터 사용하기 ]
+import React, { Component } from 'react';
+import './App.css';
+import datatype from 'prop-types';
+
+class PropsObjVal extends Component {
+  render() {
+    let {
+      ObjectJson
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      {JSON.stringify(ObjectJson)}
+    </div>
+    )
+  }
+}
+
+PropsObjVal.propTypes = {
+  ObjectJson: datatype.shape({
+    react: datatype.string,
+    twohundred: datatype.number
+  })
+}
+
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>Start React Object</h1>
+        <p>CSS 적용하기</p>
+        <PropsObjVal ObjectJson={{react:"리액트", twohundred:"200"}}/>
+      </div>
+    );
+  }
+}
+
+export default App;
+[6-6. 필수 데이터 지정하기 ]
+import React, { Component } from 'react';
+import './App.css';
+import datatype from 'prop-types';
+
+class PropsRequired extends Component {
+  render() {
+    let {
+      ReactString,
+      ReactNumber
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      {ReactString}{ReactNumber}
+    </div>
+    )
+  }
+}
+
+PropsRequired.propTypes = {
+  ReactString: datatype.isRequired,
+  // 문자열 데이터를 필수 데이터로 지정함
+}
+
+
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>필수 데이터 지정하기 </h1>
+        <PropsRequired ReactNumber={200}/>
+        // 필수 데이터로 지정된 문자열을 넘기지 않았으므로 
+        // 콘솔에 에러를 표시함 
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[6-7. props를 기본데이타로 지정하기 ]
+import React, { Component } from 'react';
+import './App.css';
+
+class PropsDefault extends Component {
+  render() {
+    let {
+      ReactString,
+      ReactNumber
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      {ReactString}{ReactNumber}
+      // 부모로부터 컴포넌트 값이 넘어오지 않은때 사용하는 기본값
+      // 문자열은 넘어오지 않아 기본값을 사용하고
+      // 숫자는 넘어온 값을 사용함 
+    </div>
+    )
+  }
+}
+
+PropsDefault.defaultProps = {
+  ReactString: "리액트",
+  ReactNumber: 400
+}
+
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>기본데이터 지정</h1>
+        <PropsDefault ReactNumber={200}/>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[6-7. props를 기본데이타로 지정하기 ]
+import React, { Component } from 'react';
+import './App.css';
+
+class PropsNode extends Component {
+  render() {
+    return (
+    <div style={{padding: "0px"}}>
+      {this.props.children}
+    </div>
+    )
+  }
+}
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>node 데이타 전달!</h1>
+        <PropsNode>
+          <span>node from App.js</span>
+        </PropsNode>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[6-8. 배열데이터 사용하기 ]
+import React, { Component } from 'react';
+import './App.css';
+import datatype from 'prop-types';
+
+class PropsArray extends Component {
+  render() {
+    return (
+    <div style={{padding: "0px"}}>
+       <p>ArrayProps: {Array.toString()}</p>
+       <p>ArrayProps: {Array}</p>
+    </div>
+    )
+  }
+}
+
+PropsArray.propTypes = {
+  Array: datatype.array,
+  Array: datatype.arrayOf(datatype.number),
+}
+class App extends Component {
+  render(){
+    return (
+      <div>
+        <h1>node 데이타 전달!</h1>
+        Array1={[0, 1, 8]}
+        <br/>
+        Array2={[2, 5, 9]}
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+[6-9. 프로퍼티 데이타타입 사용하기 ]
+
+[6-10. 프로퍼티 데이타타입 사용하기 ]
+import React, { Component } from 'react';
+import datatype from 'prop-types';
+
+class PropsDatatype extends Component {
+  render() {
+    let {
+      String, Number, Boolean, Array, ObjectJson, Function
+    } = this.props
+    return (
+    <div style={{padding: "0px"}}>
+      <p>StringProps: {String}</p>
+      <p>NumberProps: {Number}</p>
+      <span>BooleanProps: {Boolean.toString()}</span>
+      <p>ArrayProps: {Array.toString()}</p>
+      <p>ObjectJsonProps: {JSON.stringify(ObjectJson)}</p>
+      <p>FuncProps: {Function}</p>
+      
+    </div>
+    )
+  }
+}
+
+PropsDatatype.propTypes = {
+  String: datatype.number, // 일부러 문자열 아닌 내용 지정 
+  Number: datatype.number,
+  Boolean: datatype.bool,
+  Array: datatype.array,
+  ObjectJson: datatype.object,
+  Function:datatype.func
+}
+
+export default PropsDatatype;
+
+///////////////////////////////
+import React, { Component } from 'react';
+import './App.css';
+import PropsDatatype from './04/PropsDatatypes'
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Start React 200!</h1>
+        <p>데이타 타입사용하기</p>
+        <PropsDatatype 
+          String="react"
+          Number={200}
+          Boolean={1==1}
+          Array={[0, 1, 8]}
+          ObjectJson={{react:"리액트", twohundred:"200"}}
+          Function={console.log('function output')}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+[자식 프로퍼티]
+최상위 노드 아래에 들어있는 프로퍼티
+this.props.children

@@ -1,0 +1,214 @@
+import React, { useState } from 'react';
+import ClassChild from './ClassChild';
+import ClassFunction from './ClassFunction';
+
+function App() {
+  return(
+    <div className="App">
+      <h1> 컴포넌트 비교 </h1>
+      <ClassChild  data={'kim'} />
+      <ClassFunction data={'park'}/>
+    </div>
+  )
+}
+
+export default App;
+///////////////////////////////////
+
+import React from 'react';
+/*
+const ClassFunction = (props) => {
+    const  superData  = props.data;
+    console.log( superData );
+    return (
+        <div>
+            <h1> {props.data} </h1>
+            <h1> {superData} </h1>
+        </div>
+    );
+};
+*/
+const ClassFunction = (props) => {
+    const  superData  = props.data;
+    console.log( "----" + superData );
+    
+    function onBtnClick( param ){
+        if(typeof param !== 'string'){
+            param = 'park';
+        }
+        console.log( param + "클릭" );
+    }
+    return (
+        <div>
+            <h1> {props.data} </h1>
+            <h1> {superData} </h1>
+            <button onClick={ onBtnClick } >my데이터</button>
+            <button onClick={ e=>{onBtnClick('park2')} } >my데이터</button>
+        </div>
+    );
+};
+
+export default ClassFunction;
+
+//////////////////////////////
+
+import React, { Component } from 'react';
+
+class ClassChild extends Component {
+    onBtnClick( param ){
+        if(typeof param != 'string'){
+            param = 'kim';
+        }
+        console.log( param + "클릭" );
+    }
+    render() {
+        const  superData  = this.props.data;
+        console.log( superData );
+        return (
+            <div>
+                <h1>{ this.props.data }</h1>
+                <h1>{ superData }</h1>
+                <button onClick={ this.onBtnClick } >my데이터</button>
+                <button onClick={ e=>{this.onBtnClick('kim2')} } >my데이터</button>
+            </div>
+        );
+    }
+}
+
+export default ClassChild;
+
+
+[2. 대량의 데이터 전달]
+// import logo from './logo.svg';
+// import './App.css';
+import React, { useState } from 'react';
+import ClassChild from './ClassChild';
+import ClassFunction from './ClassFunction';
+
+function App() {
+  const array = [1,2,3];
+  const obj = {name:'kim', age:30};
+  const node = <h1>제목노드</h1>;
+  const func = ()=>{ console.log('메시지')}
+
+  return(
+    <div className="App">
+      <h1> 컴포넌트 비교 </h1>
+        <ClassChild
+          str={"kim"}
+          boolValue={true}
+          numValue={1}
+          arrayValue={array}
+          objValue={obj}
+          nodeValue={node}
+          funcValue={func}
+      />
+      
+      <ClassFunction str={"park"}
+          boolValue={true}
+          numValue={1}
+          arrayValue={array}
+          objValue={obj}
+          nodeValue={node}
+          funcValue={func}/>
+    </div>
+  )
+}
+
+export default App;
+
+
+[2. class 대량의 데이터 전달]
+import React, { Component } from 'react';
+
+class ClassChild extends Component {
+    onBtnClick( param ){
+        if(typeof param != 'string'){
+            param = 'kim';
+        }
+        console.log( param + "클릭" );
+    }
+    render() {
+        const {
+            str,
+            boolValue,
+            numValue,
+            arrayValue,
+            objValue,
+            nodeValue,
+            funcValue,
+          } = this.props;
+      
+        console.log( str );
+        return (
+            <div>
+                 <ul>
+                <li>불리언값: {boolValue}</li>
+                <li>숫자값: {numValue}</li>
+                <li>배열값: {arrayValue}</li>
+                <li>객체값: {String(Object.entries(objValue))}</li>
+                <li>노드값: {nodeValue}</li>
+                
+                <li>함수값: {String(funcValue)}</li>
+               
+            </ul>
+                <button onClick={ this.onBtnClick } >my데이터</button>
+                <button onClick={ e=>{this.onBtnClick('kim2')} } >my데이터</button>
+            </div>
+        );
+    }
+}
+
+export default ClassChild;
+
+[2. function 대량의 데이터 전달]
+import React from 'react';
+/*
+const ClassFunction = (props) => {
+    const  superData  = props.data;
+    console.log( superData );
+    return (
+        <div>
+            <h1> {props.data} </h1>
+            <h1> {superData} </h1>
+        </div>
+    );
+};
+*/
+const ClassFunction = (props) => {
+    const {
+        str,
+        boolValue,
+        numValue,
+        arrayValue,
+        objValue,
+        nodeValue,
+        funcValue,
+      } = props;
+  
+    console.log( 'str= ' + str );
+    function onBtnClick( param ){
+        if(typeof param !== 'string'){
+            param = 'park';
+        }
+        console.log( param + "클릭" );
+    }
+    return (
+        <div>
+            
+            <ul>
+                <li>불리언값: {str}</li>
+                <li>불리언값: {boolValue}</li>
+                <li>숫자값: {numValue}</li>
+                <li>배열값: {arrayValue}</li>
+                <li>객체값: {String(Object.entries(objValue))}</li>
+                <li>노드값: {nodeValue}</li>
+                <li>함수값: {String(funcValue)}</li> 
+            </ul>
+            <button onClick={ onBtnClick } >my데이터</button>
+            <button onClick={ e=>{onBtnClick('park2')} } >my데이터</button>
+        </div>
+    );
+};
+
+export default ClassFunction;
