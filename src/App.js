@@ -1,17 +1,24 @@
 // import logo from './logo.svg';
 // import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Counter from './Counter3';
 
 function App() {
-  const [btnStr, setBtnStr ] = useState('parent click');
-
+  const [condition, setCondition] = useState(false);
+  const toggle= () => setCondition(!condition);
+  const [count, setCount ] = useState(0);
+  
+  useEffect(()=>{
+      //console.log(condition);
+      setCount(count+1)
+      console.log( count )
+  }, [condition]);
+  
   return(
     <div className="App">
       <h1> 컴포넌트 비교 </h1>
-        
-        <Counter/>
-        <Counter count={10} str={ btnStr } />
+       { condition ? "false" : "true" }
+       <button onClick={toggle}>Toggle  </button>
     </div>
   )
 }
