@@ -11,7 +11,7 @@ function App() {
   ]
   const renderMovie = movies.map(movie=>{
     return(
-      <Movie />
+       <Movie movie={movie} />
     )
   })
   return(
