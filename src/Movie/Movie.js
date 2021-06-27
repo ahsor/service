@@ -1,12 +1,11 @@
 import React from 'react';
 
-const Movie = ({movie, removeMovie}) => {
+const Movie = (props) => {
     return (
        
     <li className="movie">
-        <span className="movie-title">{movie.title}</span>
-        <span className="movie-year"> {movie.year}</span>
-        <button onClick={()=>{ removeMovie(movie.id)}}>삭제</button>
+        <span>{props.movie.title}</span>
+        <span> {props.movie.year}</span>
     </li>
 
     );

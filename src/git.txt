@@ -158,3 +158,40 @@ To https://github.com/ahsor/service1.git
 Branch 'master' set up to track remote branch 'master' from 'jemicomit'.
 
 D:\service1>
+PS D:\service> git init
+PS D:\service> git add .
+PS D:\service> git commit -m 'myservice";
+>> ^C
+PS D:\service> git remote add origin https://github.com/ahsor/service.git
+error: remote origin already exists.
+PS D:\service> git remote add jemicom https://github.com/ahsor/service.git
+PS D:\service> git remote add jemicomit https://github.com/ahsor/service.git
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   src/git.txt
+
+PS D:\service> git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/ahsor/service.git'
+PS D:\service> git push -u jemicomit  main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/ahsor/service.git'
+PS D:\service> git push
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+PS D:\service> git push --set-upstream origin master
+Enumerating objects: 89, done.
+Counting objects: 100% (89/89), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (89/89), done.
+Writing objects: 100% (89/89), 249.51 KiB | 2.80 MiB/s, done.
+Total 89 (delta 13), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (13/13), done.
+To https://github.com/ahsor/service.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+PS D:\service> 
