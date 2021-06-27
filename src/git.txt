@@ -1,0 +1,160 @@
+D:\service1>git init
+Initialized empty Git repository in D:/service1/.git/
+
+D:\service1>git add .
+warning: LF will be replaced by CRLF in .gitignore.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in public/index.html.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in public/manifest.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in public/robots.txt.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/App.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/App.test.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R024_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R024_ReactState.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R025_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R025_SetState.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R026_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R026_ForceUpdate.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R031_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R031_ReactHook.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R032_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R032_Fragments.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R033_App.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/component03/R033_ReturnMap.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/index.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/index.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/reportWebVitals.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/setupTests.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in yarn.lock.
+The file will have its original line endings in your working directory
+
+D:\service1>git commit -m "service1"
+[master (root-commit) 4b45eef] service1
+ 77 files changed, 16669 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 "01_\353\246\254\354\227\221\355\212\270\354\204\244\354\271\230\354\231\200\352\270\260\353\263\270\354\202\254\354\232\251.txt"
+ create mode 100644 "02_\353\246\254\354\225\241\355\212\270\354\273\264\355\217\254\353\204\214\355\212\270\354\231\200props.txt"
+ create mode 100644 "03_state\354\231\200event.txt"
+ create mode 100644 04_example.txt
+ create mode 100644 README.md
+ create mode 100644 arrowfun.html
+ create mode 100644 filter.html
+ create mode 100644 map.html
+ create mode 100644 "npm\354\202\254\354\232\251\353\262\225"
+ create mode 100644 package.json
+ create mode 100644 public/favicon.ico
+ create mode 100644 public/index.html
+ create mode 100644 public/logo192.png
+ create mode 100644 public/logo512.png
+ create mode 100644 public/manifest.json
+ create mode 100644 public/robots.txt
+ create mode 100644 "reactAPP\352\265\254\354\241\260"
+ create mode 100644 reduce.html
+ create mode 100644 src/App.css
+ create mode 100644 src/App.js
+ create mode 100644 src/App.test.js
+ create mode 100644 src/ClassChild.js
+ create mode 100644 src/ClassFunction.js
+ create mode 100644 src/Counter.js
+ create mode 100644 src/Movie/App.js
+ create mode 100644 src/Movie/Movie.js
+ create mode 100644 src/Movie/MovieForm.js
+ create mode 100644 src/Subclass.js
+ create mode 100644 src/Subclass2.js
+ create mode 100644 "src/class\354\231\200function.txt"
+ create mode 100644 src/component01/Content.js
+ create mode 100644 src/component01/Hello.css
+ create mode 100644 src/component01/Hello.js
+ create mode 100644 src/component01/Hello.module.css
+ create mode 100644 src/component01/Subject.js
+ create mode 100644 src/component01/TOC.js
+ create mode 100644 src/component01/Welcome.jsx
+ create mode 100644 src/component01/World.js
+ create mode 100644 src/component02/Content.js
+ create mode 100644 src/component02/Datatype.js
+ create mode 100644 src/component02/R01_Component.js
+ create mode 100644 src/component02/R02_Lifecycle.js
+ create mode 100644 src/component02/R03_Lifecycle.js
+ create mode 100644 src/component02/R04_Variable.js
+ create mode 100644 src/component02/R05_Props.js
+ create mode 100644 src/component02/R06_Props.js
+ create mode 100644 src/component02/R07_Props.js
+ create mode 100644 src/component02/R08_Props.js
+ create mode 100644 src/component02/R09_Props.js
+ create mode 100644 src/component02/Subject.js
+ create mode 100644 src/component02/TOC.js
+ create mode 100644 src/component02/Todo.js
+ create mode 100644 src/component03/Counter.js
+ create mode 100644 src/component03/Hello.js
+ create mode 100644 src/component03/Hello02.js
+ create mode 100644 src/component03/Hello03.js
+ create mode 100644 src/component03/HelloUserName.js
+ create mode 100644 src/component03/R024_App.js
+ create mode 100644 src/component03/R024_ReactState.js
+ create mode 100644 src/component03/R025_App.js
+ create mode 100644 src/component03/R025_SetState.js
+ create mode 100644 src/component03/R026_App.js
+ create mode 100644 src/component03/R026_ForceUpdate.js
+ create mode 100644 src/component03/R031_App.js
+ create mode 100644 src/component03/R031_ReactHook.js
+ create mode 100644 src/component03/R032_App.js
+ create mode 100644 src/component03/R032_Fragments.js
+ create mode 100644 src/component03/R033_App.js
+ create mode 100644 src/component03/R033_ReturnMap.js
+ create mode 100644 src/component03/UserName.js
+ create mode 100644 src/index.css
+ create mode 100644 src/index.js
+ create mode 100644 src/logo.svg
+ create mode 100644 src/reportWebVitals.js
+ create mode 100644 src/setupTests.js
+ create mode 100644 yarn.lock
+
+
+D:\service1>git remote add jemicomit https://github.com/ahsor/service1.git
+
+D:\service1>git push jemicomit
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream jemicomit master
+
+D:\service1> git push --set-upstream jemicomit master
+Enumerating objects: 84, done.
+Counting objects: 100% (84/84), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (84/84), done.
+Writing objects: 100% (84/84), 248.79 KiB | 4.08 MiB/s, done.
+Total 84 (delta 10), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (10/10), done.
+To https://github.com/ahsor/service1.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'jemicomit'.
+
+D:\service1>

@@ -1,16 +1,17 @@
 // import logo from './logo.svg';
 // import './App.css';
 import React, { useState } from 'react';
-import Counter from './Counter';
+import Counter from './Counter3';
 
 function App() {
-  
+  const [btnStr, setBtnStr ] = useState('parent click');
+
   return(
     <div className="App">
       <h1> 컴포넌트 비교 </h1>
         
         <Counter/>
-        <Counter count={10}/>
+        <Counter count={10} str={ btnStr } />
     </div>
   )
 }
