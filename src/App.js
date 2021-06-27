@@ -1,24 +1,23 @@
-// import logo from './logo.svg';
-// import './App.css';
 import React, { useEffect, useState } from 'react';
-import Counter from './Counter3';
 
 function App() {
-  const [condition, setCondition] = useState(false);
-  const toggle= () => setCondition(!condition);
-  const [count, setCount ] = useState(0);
-  
-  useEffect(()=>{
-      //console.log(condition);
-      setCount(count+1)
-      console.log( count )
-  }, [condition]);
-  
+  const movies = [
+    {id:1, title:'아라비카', year:2001},
+    {id:2, title:'콜롬비아', year:2001},
+    {id:3, title:'에티오피아', year:2001},
+    {id:4, title:'아프리카', year:2001},
+  ]
+  const renderMovie = movies.map(movie=>{
+    return(
+      <li key={movie.id}>
+        <span>{movie.title}</span>
+        <span>{movie.year}</span>
+      </li>
+    )
+  })
   return(
     <div className="App">
-      <h1> 컴포넌트 비교 </h1>
-       { condition ? "false" : "true" }
-       <button onClick={toggle}>Toggle  </button>
+      { renderMovie }
     </div>
   )
 }
