@@ -20,7 +20,12 @@ function App() {
   })
   const onSubmit = (e)=>{
     e.preventDefault();
-    console.log(movieTitle, movieYear)
+    console.log(movieTitle, movieYear);
+    movies.push({
+     
+      title:movieTitle,
+      year:movieYear
+    })
   }
   return(
     <div className="App">
@@ -39,7 +44,6 @@ function App() {
         <button type="submit">영화 추가</button>
       </form>
       { renderMovie }
-
     </div>
   )
 }
