@@ -1,30 +1,16 @@
-<<<<<<< HEAD
 import React from 'react';
 
-const Movie = (props) => {
+const Movie = ({movie, removeMovie}) => {
     return (
        
     <li className="movie">
-        <span>{props.movie.title}</span>
-        <span> {props.movie.year}</span>
+        <span>{movie.id}</span>
+        <span>{movie.title}</span>
+        <span> {movie.year}</span>
+        <button onClick={()=>removeMovie(movie.title)}>삭제</button>
     </li>
 
     );
 };
 
-=======
-import React from 'react';
-
-const Movie = (props) => {
-    return (
-       
-    <li className="movie">
-        <span>{props.movie.title}</span>
-        <span> {props.movie.year}</span>
-    </li>
-
-    );
-};
-
->>>>>>> f6bedc5dfbc31a94100d39b584cba0168251b65c
 export default Movie;
